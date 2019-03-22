@@ -34,6 +34,10 @@ private:
   const char* mMqttPassword;
   const char* mMqttClientName;
 
+  const char* mMqttLastWillTopic;
+  const char* mMqttLastWillMessage;
+  bool mMqttLastWillRetain;
+
   ConnectionEstablishedCallback mConnectionEstablishedCallback;
 
   const bool mEnableWebUpdater;
@@ -64,14 +68,15 @@ public:
     const char wifiSsid[], const char* wifiPassword,
     ConnectionEstablishedCallback connectionEstablishedCallback, const char* mqttServerIp, const short mqttServerPort = 1883,
     const char* mqttUsername = "", const char* mqttPassword = "", const char* mqttClientName = "ESP8266",
-    const bool enableWebUpdater = true, const bool enableSerialLogs = true);
+    const bool enableWebUpdater = true, const bool enableSerialLogs = true, const char* mqttLastWillTopic = "", const bool mqttLastWillRetain = false, const char* mqttLastWillMessage = "");
 
   // Legacy constructor
+
   EspMQTTClient(
     const char wifiSsid[], const char* wifiPassword, const char* mqttServerIp,
     const short mqttServerPort, const char* mqttUsername, const char* mqttPassword,
     const char* mqttClientName, ConnectionEstablishedCallback connectionEstablishedCallback,
-    const bool enableWebUpdater = true, const bool enableSerialLogs = true);
+    const bool enableWebUpdater = true, const bool enableSerialLogs = true, const char* mqttLastWillTopic = "", const bool mqttLastWillRetain = false, const char* mqttLastWillMessage = "");
 
   ~EspMQTTClient();
 

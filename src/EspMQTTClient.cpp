@@ -8,11 +8,13 @@ EspMQTTClient::EspMQTTClient(
   const char wifiSsid[], const char* wifiPassword, const char* mqttServerIp,
   const short mqttServerPort, const char* mqttUsername, const char* mqttPassword,
   const char* mqttClientName, ConnectionEstablishedCallback connectionEstablishedCallback,
-  const bool enableWebUpdater, const bool enableSerialLogs)
+  const bool enableWebUpdater, const bool enableSerialLogs,
+  const char* mqttLastWillTopic, const bool mqttLastWillRetain, const char* mqttLastWillMessage)
   : mWifiSsid(wifiSsid), mWifiPassword(wifiPassword), mMqttServerIp(mqttServerIp),
   mMqttServerPort(mqttServerPort), mMqttUsername(mqttUsername), mMqttPassword(mqttPassword),
   mMqttClientName(mqttClientName), mConnectionEstablishedCallback(connectionEstablishedCallback),
-  mEnableWebUpdater(enableWebUpdater), mEnableSerialLogs(enableSerialLogs)
+  mEnableWebUpdater(enableWebUpdater), mEnableSerialLogs(enableSerialLogs),
+  mMqttLastWillTopic(mqttLastWillTopic), mMqttLastWillRetain(mqttLastWillRetain), mMqttLastWillMessage(mqttLastWillMessage)
 {
   initialize();
 }
@@ -22,11 +24,13 @@ EspMQTTClient::EspMQTTClient(
   const char wifiSsid[], const char* wifiPassword,
   ConnectionEstablishedCallback connectionEstablishedCallback, const char* mqttServerIp, const short mqttServerPort,
   const char* mqttUsername, const char* mqttPassword, const char* mqttClientName,
-  const bool enableWebUpdater, const bool enableSerialLogs)
+  const bool enableWebUpdater, const bool enableSerialLogs,
+  const char* mqttLastWillTopic, const bool mqttLastWillRetain, const char* mqttLastWillMessage)
   : mWifiSsid(wifiSsid), mWifiPassword(wifiPassword), mMqttServerIp(mqttServerIp),
     mMqttServerPort(mqttServerPort), mMqttUsername(mqttUsername), mMqttPassword(mqttPassword),
     mMqttClientName(mqttClientName), mConnectionEstablishedCallback(connectionEstablishedCallback),
-    mEnableWebUpdater(enableWebUpdater), mEnableSerialLogs(enableSerialLogs)
+    mEnableWebUpdater(enableWebUpdater), mEnableSerialLogs(enableSerialLogs),
+    mMqttLastWillTopic(mqttLastWillTopic), mMqttLastWillRetain(mqttLastWillRetain), mMqttLastWillMessage(mqttLastWillMessage)
 {
   initialize();
 }
@@ -251,7 +255,7 @@ void EspMQTTClient::connectToMqttBroker()
   if (mEnableSerialLogs)
     Serial.printf("MQTT: Connecting to broker @%s ... ", mMqttServerIp);
 
-  if (mMqttClient->connect(mMqttClientName, mMqttUsername, mMqttPassword))
+  if (mMqttClient->connect(mMqttClientName, mMqttUsername, mMqttPassword, mMqttLastWillTopic, 0, mMqttLastWillRetain, mMqttLastWillMessage))
   {
     mMqttConnected = true;
     
