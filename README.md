@@ -7,9 +7,12 @@ You just need to provide your credentials and it will manage the following thing
 - Automatically detecting connection lost either from the WiFi client of MQTT broker.
 - Automatically attempting to reconnect when the either WiFi or MQTT connection is lost.
 - Subscrubing/unsubscrubing to/from MQTT topics.
+- Support for a last will topic message
 - Provide a callback handling to advise when we are connected to the MQTT broker or a subscribed MQTT topic received a message.
 - Running an HTTP server secured by a password to allow remote update.
 - Printing usefull debug informations, switch the possibility off whenever debug is no longer needed.
+
+- This is a fork of [plapointe6](https://github.com/plapointe6)'s great [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient) lib.
 
 ## Dependency
 
